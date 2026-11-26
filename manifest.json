@@ -1,0 +1,35 @@
+{
+  "name": "GREEN HOUSE \u2014 Sports & Cultural Participation Portal",
+  "short_name": "Green House",
+  "description": "Official Sports & Cultural Participation Portal for Green House, Rev. William Ward Senior Secondary School.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B281B",
+  "theme_color": "#0B281B",
+  "categories": [
+    "education",
+    "sports"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

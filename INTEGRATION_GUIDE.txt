@@ -1,0 +1,97 @@
+================================================================================
+GREEN HOUSE — SPORTS & CULTURAL PARTICIPATION PORTAL
+DETAILED INTEGRATION & DEPLOYMENT GUIDE
+Rev. William Ward Senior Secondary School
+================================================================================
+
+IMPORTANT NOTE BEFORE YOU START:
+This portal is configured with your Supabase Project URL:
+  https://xrhcuzwagxlncyerfpui.supabase.co
+
+However, cloud database connection will remain in "Configuration Required" or
+"Database Setup Pending" state until you complete Steps 1, 2, and 3 below.
+Do not share the student link until you have tested the connection yourself.
+
+--------------------------------------------------------------------------------
+STEP 1: SET UP THE SUPABASE DATABASE TABLES & SECURITY POLICIES
+--------------------------------------------------------------------------------
+1. Open your browser and sign in to https://supabase.com/dashboard.
+2. Open your project: xrhcuzwagxlncyerfpui (https://xrhcuzwagxlncyerfpui.supabase.co).
+3. In the left menu, tap "SQL Editor" -> "New query".
+4. Open the file "supabase_setup.sql" from this project folder, copy its entire
+   contents, and paste it into the Supabase SQL Editor.
+5. Tap "Run" (or Ctrl+Enter / Cmd+Enter).
+6. Confirm you see "Success. No rows returned".
+   This automatically creates:
+   - public.settings (with registration_open = TRUE)
+   - public.events (seeded with all 13 Sports and 8 Cultural events)
+   - public.registrations (protected by Row Level Security)
+   - public.managers (authorized management registry)
+   - public.submit_student_registration(...) RPC
+   - public.verify_manager_access() RPC
+
+--------------------------------------------------------------------------------
+STEP 2: CREATE AN AUTHORIZED MANAGEMENT ACCOUNT
+--------------------------------------------------------------------------------
+1. In your Supabase Dashboard, open "Authentication" -> "Users".
+2. Tap "Add user" -> "Create new user".
+3. Enter the House Master's or Coordinator's email address and a strong password.
+   (Keep "Auto Confirm User" checked so they can sign in immediately.)
+4. After creating the user, copy their "User UID" (a UUID like
+   123e4567-e89b-12d3-a456-426614174000).
+5. Go back to "SQL Editor" -> "New query" and run:
+
+   INSERT INTO public.managers (user_id, email, full_name, role, is_active)
+   VALUES (
+     'PASTE-THE-USER-UID-HERE',
+     'manager-email@example.com',
+     'Green House Master',
+     'house_master',
+     TRUE
+   );
+
+   Security Note: Only users added to public.managers with is_active = TRUE can
+   log in to the Management Dashboard.
+
+--------------------------------------------------------------------------------
+STEP 3: ADD YOUR SUPABASE PUBLISHABLE KEY TO config.js
+--------------------------------------------------------------------------------
+1. In your Supabase Dashboard, go to "Project Settings" (gear icon) -> "API".
+2. Find the "Project API keys" section and copy the "anon" / "publishable" key.
+   WARNING: NEVER copy the "service_role" / "secret" key into frontend code!
+3. Open "config.js" in this project folder.
+4. Replace:
+     REPLACE_WITH_YOUR_SUPABASE_PUBLISHABLE_KEY
+   with your copied publishable key, keeping the quotation marks.
+5. Save "config.js".
+
+--------------------------------------------------------------------------------
+STEP 4: VERIFY WITH DUMMY RECORDS BEFORE GOING LIVE
+--------------------------------------------------------------------------------
+1. Open the deployed website. The top status pill should change to:
+   "Cloud Connected • Verified".
+2. Submit a dummy registration:
+   - Full Name: Dummy Student Test
+   - Roll Number: DUMMY-01
+   - Select 1 Sport and 1 Cultural event.
+3. Try submitting Roll Number "DUMMY-01" a second time to verify duplicate
+   prevention blocks it cleanly.
+4. Switch to "Management Portal", sign in with your manager email and password,
+   and verify:
+   - Overview stats show 1 student registered.
+   - Participants tab displays "Dummy Student Test" and CSV export downloads.
+   - Events tab lets you add, edit, disable, enable, and delete events.
+   - Settings & Backup tab lets you toggle registration Open/Closed and download
+     a JSON backup.
+5. Delete the "DUMMY-01" test record from the Participants tab before opening
+   registrations to students.
+
+--------------------------------------------------------------------------------
+STEP 5: ANDROID PWA INSTALLATION NOTES
+--------------------------------------------------------------------------------
+- When opened in Google Chrome on Android over HTTPS (such as Vercel), users
+  will see an "Install App" button in the header or "Add to Home screen" in the
+  Chrome menu.
+- Static interface files are cached by sw.js for fast loading, while live
+  registrations and management actions always require an internet connection.
+================================================================================

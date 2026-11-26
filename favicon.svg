@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Green House Crest">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#123B29"/>
+      <stop offset="100%" stop-color="#0B281B"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DFC070"/>
+      <stop offset="100%" stop-color="#B89038"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="24" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="4"/>
+  <path d="M32 26 H96 V68 C96 87 64 104 64 104 C64 104 32 87 32 68 Z" fill="#1E5A3E" stroke="url(#goldGrad)" stroke-width="3.5"/>
+  <path d="M40 34 H88 V65 C88 79 64 93 64 93 C64 93 40 79 40 65 Z" fill="#0F3323" stroke="#F8F6F0" stroke-opacity="0.35" stroke-width="1.5"/>
+  <path d="M64 42 L74 58 L64 78 L54 58 Z" fill="url(#goldGrad)"/>
+  <circle cx="64" cy="59" r="3.5" fill="#0B281B"/>
+</svg>
