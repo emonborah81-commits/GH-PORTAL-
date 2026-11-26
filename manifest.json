@@ -1,0 +1,12 @@
+{
+  "name": "Green House Participation Portal",
+  "short_name": "Green House",
+  "description": "Sports and cultural participation portal for Green House.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7f1",
+  "theme_color": "#14532d",
+  "icons": [
+    {"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
